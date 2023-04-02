@@ -1,0 +1,38 @@
+.card {
+    width: 17rem;
+    height: 17rem;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    .cardiconArea {
+        width: 17rem;
+        height: 11rem;
+        overflow: hidden;
+
+        .cardIcon {
+            width: 17rem;
+            height: 11rem;
+            object-fit: cover
+        }
+
+        .cardIconPlaceholder{
+            width: 17rem;
+            height: 11rem;
+            object-fit: contain
+        }
+    }
+
+    .buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        gap: 1rem;
+
+        .mine{
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+            gap: 0.5rem;
+        }
+    }
+}

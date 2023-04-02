@@ -1,0 +1,19 @@
+.authentication{
+    display: flex;
+    justify-content: center;
+
+    .submitOrToggle{
+        display: flex;
+        flex-direction: column;
+        .btn-submit{
+            display: flex;
+            justify-content: flex-end;
+        }
+        .toggle-area{
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
