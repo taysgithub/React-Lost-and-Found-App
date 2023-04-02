@@ -23,7 +23,11 @@
     }
 
     .card-title-mine{
-        color: rgb(68, 114, 75);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        // color: rgb(68, 114, 75);
+        // font-weight: bold;
     }
 
     .buttons{

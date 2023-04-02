@@ -1,7 +1,7 @@
-import { AppContext } from "../../App"
+import { AppContext } from "../../../App"
 import { useContext } from 'react';
-import { Cards } from "../Cards/Cards";
-import { Footer } from "../Footer/Footer";
+import { Posts } from "../Posts";
+import { Footer } from "../../Footer/Footer";
 import "./MyPosts.scss";
 
 export const MyPosts = () => {
@@ -12,7 +12,7 @@ export const MyPosts = () => {
             <div className="myPosts-main">
             <h3>My Posts</h3>
                 { authState &&
-                    <Cards 
+                    <Posts 
                         userId={authState.uid}
                         // mine={true}
                         mode = "mine"

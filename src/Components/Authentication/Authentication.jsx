@@ -35,7 +35,6 @@ export const Authentication = (prop) => {
         signInWithEmailAndPassword(auth, email.current.value, password.current.value).then(
             userCredential => {
                 navigate(`/${prop.location}`);
-
             }
         ).catch(e => {
             alert(`${e.code}: ${e.message}`);
@@ -58,7 +57,7 @@ export const Authentication = (prop) => {
 
     return (
         <div className="authentication">
-            <Form onSubmit={submit}>
+            <Form onSubmit={submit} className='auth-form'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <FloatingLabel
                         controlId="floatingEmail"

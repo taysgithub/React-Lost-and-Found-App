@@ -1,17 +1,19 @@
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Badge from 'react-bootstrap/Badge';
 import {GiHamburgerMenu} from "react-icons/gi";
 import { Link } from "react-router-dom";
 import "./Navigation.scss";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { signOut } from "firebase/auth";
 import { AppContext } from '../../../App';
 
 export const Navigation = () => {
 
-    const {authState, auth} = useContext(AppContext);
+    const {authState, auth, posts} = useContext(AppContext);
     const [show, setShow] = useState(false);
+    const [numMyPosts, setNumMyPosts] = useState(0);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -23,6 +25,22 @@ export const Navigation = () => {
             alert(`${e.code}: ${e.message}`);
         })
     }
+
+    const calc_numMyPosts = () => {
+        if(authState){
+            let counter = 0;
+            posts?.forEach(post => {
+                if(post.userId === authState.uid){
+                    counter += 1;
+                }
+            })
+            setNumMyPosts(counter);
+        }
+    }
+
+    useEffect(() => {
+        calc_numMyPosts();
+    }, [posts]);
 
     return (
         <div>
@@ -52,7 +70,10 @@ export const Navigation = () => {
                             { authState &&
                                 <div className="isSignedIn">
                                     <Nav.Item>
-                                        <Nav.Link as={Link} to="/myposts" onClick={handleClose} className='option'>My Posts</Nav.Link>
+                                        <Nav.Link as={Link} to="/myposts" onClick={handleClose} className='option' id='myposts-navlink'>
+                                            My Posts
+                                            <Badge pill bg="dark">{numMyPosts}</Badge>
+                                        </Nav.Link>  
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link as={Link} to="/" onClick={() => {handleClose(); sign_out()}} className='option'>Sign Out</Nav.Link>

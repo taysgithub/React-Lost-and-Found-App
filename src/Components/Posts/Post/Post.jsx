@@ -1,27 +1,34 @@
 import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
 import { Details } from './Details/Details';
 import { Delete } from "./Delete/Delete";
-import "./Card.scss";
+import "./Post.scss";
 import noImage from '../../../assets/noimage.jpg';
 import loadingImage from "../../../assets/loading.gif"
 import { Compose } from '../../Compose/Compose';
 import { useContext } from 'react';
 import { AppContext } from '../../../App';
 
-export const CardSingle = (props) => {
+export const Post = (props) => {
     const post = props.post;
     const isMyPosts = (props.mode === "mine");
-    const isLoading = props.isLoading;
     const { authState } = useContext(AppContext);
 
     return (
-        <div className="card">
+        <div className="card">       
             <Card > 
                 <div className="cardiconArea">
-                    <Card.Img variant="top" src={isLoading ? loadingImage : props.post.photoUrls.length === 0 ? noImage : props.post.photoUrls[0]} className={props.post.photoUrls.length === 0 ? 'cardIconPlaceholder' : 'cardIcon'}/>
+                    <Card.Img variant="top" src={props.post.photoUrls.length === 0 ? noImage : props.post.photoUrls[0]} className={props.post.photoUrls.length === 0 ? 'cardIconPlaceholder' : 'cardIcon'}/>
                 </div>
                 <Card.Body>
-                    <Card.Title className={props.post.userId === authState?.uid ? "card-title-mine" : "card-title"}>{props.post.name}</Card.Title>
+                    <Card.Title className={props.post.userId === authState?.uid ? "card-title-mine" : "card-title"}>
+                        {props.post.name} 
+                        {props.post.userId === authState?.uid && 
+                            <div className='badge'>
+                                <Badge bg="success">Me</Badge>
+                            </div>
+                        }
+                    </Card.Title>
                     <Card.Text>{props.post.description.length > 25 ? `${props.post.description.slice(0, 25)}...` : props.post.description}</Card.Text>
                     <div className="buttons">
                         <Details 
@@ -41,7 +48,7 @@ export const CardSingle = (props) => {
                         }
                     </div>
                 </Card.Body>
-            </Card>
+            </Card>          
         </div>
     )
 }

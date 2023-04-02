@@ -1,7 +1,6 @@
 import "./HomePage.scss";
 import { Footer } from "../Footer/Footer";
-
-import { Cards } from "../Cards/Cards";
+import { Posts } from "../Posts/Posts";
 
 export const HomePage = () => {
 
@@ -9,7 +8,7 @@ export const HomePage = () => {
         <div className="homepage">
             <div className="home-main">
                 <h3>All Posts</h3>
-                <Cards 
+                <Posts 
                     mine={false}
                     mode = "all"
                 />

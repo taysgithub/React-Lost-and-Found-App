@@ -2,18 +2,24 @@
     display: flex;
     justify-content: center;
 
-    .submitOrToggle{
-        display: flex;
-        flex-direction: column;
-        .btn-submit{
+    .auth-form{
+        width: 50%;
+        min-width: 12.6875rem;
+
+        .submitOrToggle{
             display: flex;
-            justify-content: flex-end;
-        }
-        .toggle-area{
-            font-size: 0.875rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            .btn-submit{
+                display: flex;
+                justify-content: flex-end;
+            }
+            .toggle-area{
+                font-size: 0.875rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         }
     }
+
 }
