@@ -6,12 +6,10 @@ import Button from 'react-bootstrap/Button';
 import { db } from "../../../../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref, listAll } from "firebase/storage";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Delete = (props) => {
-    const {auth, storage} = useContext(AppContext);
+    const {authState, storage} = useContext(AppContext);
     const [show, setShow] = useState(false);
-    const [authState] = useAuthState(auth);
 
     const toggleModal = () => {
         setShow(!show);             

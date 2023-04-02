@@ -6,20 +6,17 @@ import { ComposeContext } from "../../Compose";
 import { db } from "../../../../firebase";
 import { collection, addDoc, serverTimestamp, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { storageRef } from "../../../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { ComposeCarousel } from "../Compose-Carousel";
 
 
 export const NewPost = () => {
-    const {auth, navigate, storage, upload,  getDownloadUrl, uploadResumable} = useContext(AppContext);
+    const {authState, navigate, storage, upload,  getDownloadUrl, uploadResumable} = useContext(AppContext);
     const {
         photos, 
         setValidated,
         setInProgress,
         imageCompression,
     } = useContext(ComposeContext)
-    const [authState] = useAuthState(auth);
-
 
     const handleNewPost = async (event) => {
         event.preventDefault();
@@ -47,10 +44,9 @@ export const NewPost = () => {
             timestamp: serverTimestamp()
         }
         const docRef = await addDoc(collection(db, "posts"),form);
-        console.log(docRef.id);
+        // console.log(docRef.id);
         if(photos.length !== 0){
             const updateRef = doc(db, "posts", docRef.id);
-            // const metadata = { contentType: 'image/jpeg' };
             const options = {
                 maxSizeMB: 1,
                 maxWidthOrHeight: 466,
@@ -61,12 +57,10 @@ export const NewPost = () => {
                 const photoDirectory = `images/${authState.uid}/${docRef.id}/${photo.name}`;
                 const photoRef = storageRef(storage, photoDirectory);
                 const compressedPhoto = await imageCompression(photo, options);
-                const uploadTask = uploadResumable(photoRef, compressedPhoto/*, metadata*/);
+                const uploadTask = uploadResumable(photoRef, compressedPhoto);
                 await upload(photoRef, compressedPhoto).then(async () => {
-                    console.log(uploadTask.snapshot);
+                    // console.log(uploadTask.snapshot);
                     await getDownloadUrl(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                        // form.photoUrls = form.photoUrls.push(downloadURL);
-                        // form.photoUrls = [...form.photoUrls, downloadURL];
                         await updateDoc(updateRef, {
                             photoUrls: arrayUnion(downloadURL)
                         })
@@ -77,7 +71,6 @@ export const NewPost = () => {
                 })
             }
         }
-        // await addDoc(collection(db, "posts"),form);
         setInProgress(false);
     }
 

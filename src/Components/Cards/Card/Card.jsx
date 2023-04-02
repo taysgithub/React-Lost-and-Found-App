@@ -5,11 +5,14 @@ import "./Card.scss";
 import noImage from '../../../assets/noimage.jpg';
 import loadingImage from "../../../assets/loading.gif"
 import { Compose } from '../../Compose/Compose';
+import { useContext } from 'react';
+import { AppContext } from '../../../App';
 
 export const CardSingle = (props) => {
     const post = props.post;
-    const mode = props.mode;
+    const isMyPosts = (props.mode === "mine");
     const isLoading = props.isLoading;
+    const { authState } = useContext(AppContext);
 
     return (
         <div className="card">
@@ -18,7 +21,7 @@ export const CardSingle = (props) => {
                     <Card.Img variant="top" src={isLoading ? loadingImage : props.post.photoUrls.length === 0 ? noImage : props.post.photoUrls[0]} className={props.post.photoUrls.length === 0 ? 'cardIconPlaceholder' : 'cardIcon'}/>
                 </div>
                 <Card.Body>
-                    <Card.Title>{props.post.name}</Card.Title>
+                    <Card.Title className={props.post.userId === authState.uid ? "card-title-mine" : "card-title"}>{props.post.name}</Card.Title>
                     <Card.Text>{props.post.description.length > 25 ? `${props.post.description.slice(0, 25)}...` : props.post.description}</Card.Text>
                     <div className="buttons">
                         <Details 
@@ -28,7 +31,7 @@ export const CardSingle = (props) => {
                             email={props.post.email}
                             phone={props.post.phone}
                         />
-                        {mode === "mine" &&
+                        {isMyPosts &&
                             <div className="mine">
                                 <Compose mode="editPost" post={post}/>
                                 <Delete 

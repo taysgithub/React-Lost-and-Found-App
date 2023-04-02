@@ -6,20 +6,17 @@ import { ComposeContext } from "../../Compose";
 import { db } from "../../../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { storageRef } from "../../../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { ComposeCarousel } from "../Compose-Carousel";
 
 
 export const NewPost = () => {
-    const {auth, navigate, storage, upload,  getDownloadUrl, uploadResumable} = useContext(AppContext);
+    const { authState, navigate, storage, upload,  getDownloadUrl, uploadResumable} = useContext(AppContext);
     const {
         photos, 
         setValidated,
         setInProgress,
         imageCompression,
     } = useContext(ComposeContext)
-    const [authState] = useAuthState(auth);
-
 
     const handleNewPost = async (event) => {
         event.preventDefault();

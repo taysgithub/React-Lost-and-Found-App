@@ -1,13 +1,11 @@
 import { AppContext } from "../../App"
 import { useContext } from 'react';
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Cards } from "../Cards/Cards";
 import { Footer } from "../Footer/Footer";
 import "./MyPosts.scss";
 
 export const MyPosts = () => {
-    const {auth} = useContext(AppContext);
-    const [authState] = useAuthState(auth);
+    const {authState} = useContext(AppContext);
 
     return (
         <div className="myPosts">

@@ -6,7 +6,6 @@ import { ComposeForm } from "../Compose-Form";
 import { db } from "../../../../firebase";
 import { serverTimestamp, doc, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { storageRef } from "../../../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { ComposeCarousel } from "../Compose-Carousel";
@@ -15,7 +14,7 @@ import { deleteObject, ref } from "firebase/storage";
 export const EditPost = (props) => {
 
     const {
-        auth, 
+        authState,
         navigate, 
         storage, 
         upload, 
@@ -32,7 +31,6 @@ export const EditPost = (props) => {
     } = useContext(ComposeContext)
     
     const post = props.post;
-    const [authState] = useAuthState(auth);
     const [show, setShow] = useState(false);
 
     const toggleModal = () => {
@@ -60,8 +58,6 @@ export const EditPost = (props) => {
             email: e.target[1].value,
             phone: e.target[2].value,
             description: e.target[3].value,
-            // photoUrls: [],
-            // photoDirectories: [],
             timestamp: serverTimestamp()
         }
         try {
@@ -69,7 +65,6 @@ export const EditPost = (props) => {
                 if(post.postId === id){
                     await updateDoc(editRef, form);                 
                     if(photos.length !== 0){
-                        // const metadata = { contentType: 'image/jpeg' };
                         const updateDocRef = doc(db, "posts", post.postId);
                         for(const photoDirectory of post.photoDirectories){
                             const deleteStorageRef = ref(storage, photoDirectory);
@@ -99,11 +94,9 @@ export const EditPost = (props) => {
                             const photoDirectory = `images/${authState.uid}/${post.postId}/${photo.name}`;
                             const photoRef = storageRef(storage, photoDirectory);
                             const compressedPhoto = await imageCompression(photo, options);
-                            const uploadTask = uploadResumable(photoRef, compressedPhoto/*, metadata*/);
+                            const uploadTask = uploadResumable(photoRef, compressedPhoto);
                             await upload(photoRef, compressedPhoto).then(async () => {
                                 await getDownloadUrl(uploadTask.snapshot.ref).then( async (downloadURL) => {
-                                    // form.photoUrls = form.photoUrls.push(downloadURL);
-                                    // form.photoUrls = [...form.photoUrls, downloadURL];
                                     await updateDoc(updateDocRef, {
                                         photoUrls: arrayUnion(downloadURL)
                                     })

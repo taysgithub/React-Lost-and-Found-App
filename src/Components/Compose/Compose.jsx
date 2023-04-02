@@ -5,7 +5,6 @@ import imageCompression from 'browser-image-compression';
 
 import { AppContext } from '../../App';
 import { Authentication } from '../Authentication/Authentication';
-import { useAuthState } from "react-firebase-hooks/auth";
 import "./Compose.scss";
 import { NewPost } from './Compose-Components/New-Post/NewPost';
 import { EditPost } from './Compose-Components/Edit-Post/Edit-Post';
@@ -13,9 +12,9 @@ import { EditPost } from './Compose-Components/Edit-Post/Edit-Post';
 export const ComposeContext = createContext();
 
 export const Compose = (props) => {
-    const {auth, navigate} = useContext(AppContext);
-    const [authState] = useAuthState(auth);
+    const {navigate, authState} = useContext(AppContext);
     const mode = props.mode;
+    const isNewPost = (mode === "newPost")
     const post = props.post;
     const [validated, setValidated] = useState(false);
     const [photos, setPhotos] = useState([]);
@@ -32,7 +31,7 @@ export const Compose = (props) => {
             return;
         }
         else {
-            console.log(event.target.files);
+            // console.log(event.target.files);
             setPhotos(Array.from(event.target.files));
         }
     }
@@ -99,7 +98,7 @@ export const Compose = (props) => {
                         imageCompression,
                     }}
                 >
-                    { mode === "newPost" ? <NewPost/> : <EditPost post={post}/>}             
+                    { isNewPost ? <NewPost/> : <EditPost post={post}/>}             
                 </ComposeContext.Provider>
             }
         </div>

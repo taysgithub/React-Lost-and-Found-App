@@ -50,10 +50,10 @@ export const Authentication = (prop) => {
         else{
             signIn();
         }
-        console.log({
-            email: email,
-            password: password
-        })
+        // console.log({
+        //     email: email,
+        //     password: password
+        // })
     }
 
     return (
@@ -61,7 +61,7 @@ export const Authentication = (prop) => {
             <Form onSubmit={submit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <FloatingLabel
-                        controlId="floatingInput"
+                        controlId="floatingEmail"
                         label="Email address"
                         className="mb-3"
                     >
@@ -71,7 +71,7 @@ export const Authentication = (prop) => {
         
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <FloatingLabel
-                        controlId="floatingInput"
+                        controlId="floatingPassword"
                         label="Password"
                         className="mb-3"
                     >

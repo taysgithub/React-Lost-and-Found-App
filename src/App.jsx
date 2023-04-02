@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="app">
-      <AppContext.Provider value={{app, user, setUser, auth, navigate, storage, db, storageRef, upload, getDownloadUrl, uploadResumable, posts, setPosts}}>
+      <AppContext.Provider value={{app, user, setUser, auth, navigate, storage, db, storageRef, upload, getDownloadUrl, uploadResumable, posts, setPosts, authState}}>
           <div className="top-bar">
             <TopBar />
           </div>

@@ -7,12 +7,10 @@ import "./Navigation.scss";
 import { useState, useContext } from 'react';
 import { signOut } from "firebase/auth";
 import { AppContext } from '../../../App';
-import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Navigation = () => {
 
-    const {auth} = useContext(AppContext);
-    const [authState] = useAuthState(auth);
+    const {authState, auth} = useContext(AppContext);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

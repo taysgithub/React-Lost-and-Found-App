@@ -7,13 +7,12 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import "./Cards.scss";
 
 export const Cards = (props) => {
-    // const [posts, setPosts] = useState([]);
     const {auth, posts, setPosts} = useContext(AppContext);
     const [authState] = useAuthState(auth);
-    const mode = props.mode;
+    const isMyPosts = (props.mode === "mine");
+    const isAllPosts = (props.mode === "all");
     const[isLoading, setIsLoading] = useState(false);
 
-    // const q = (mode === "mine") ? query(collection(db, "posts"), where('userId', '==', authState.uid)) : query(collection(db, "posts"));
     const q = query(collection(db, "posts"));
 
     const subscribePosts = () => {
@@ -44,7 +43,7 @@ export const Cards = (props) => {
 
     return (
         <div className="cards">
-            { mode === "mine" && 
+            { isMyPosts && 
                 posts.map(
                     (post, index) => {
                         if(post.userId === authState.uid){
@@ -52,7 +51,7 @@ export const Cards = (props) => {
                                 <CardSingle 
                                 key={index}
                                 post={post}
-                                mode = {mode}
+                                mode = {props.mode}
                                 isLoading={isLoading}
                             />
                             )
@@ -60,13 +59,13 @@ export const Cards = (props) => {
                     }
                 )
             }
-            { mode === "all" &&
+            { isAllPosts &&
                 posts.map(
                     (post, index) => (
                         <CardSingle 
                             key={index}
                             post={post}
-                            mode = {mode}
+                            mode = {props.mode}
                             isLoading={isLoading}
                         />
                     )
