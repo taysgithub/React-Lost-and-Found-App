@@ -1,6 +1,7 @@
 import { useState, useRef, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import "./Authentication.scss";
 import { AppContext } from '../../App';
 
@@ -59,11 +60,23 @@ export const Authentication = (prop) => {
         <div className="authentication">
             <Form onSubmit={submit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="Email" ref={email} autoFocus/>
+                    <FloatingLabel
+                        controlId="floatingInput"
+                        label="Email address"
+                        className="mb-3"
+                    >
+                        <Form.Control type="email" placeholder="Email" ref={email} autoFocus={true}/>
+                    </FloatingLabel>
                 </Form.Group>
         
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" ref={password}/>
+                    <FloatingLabel
+                        controlId="floatingInput"
+                        label="Password"
+                        className="mb-3"
+                    >
+                        <Form.Control type="password" placeholder="Password" ref={password}/>
+                    </FloatingLabel>
                 </Form.Group>
 
                 {isSignUp &&

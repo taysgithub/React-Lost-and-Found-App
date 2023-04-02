@@ -10,7 +10,6 @@ import { MyPosts } from "./Components/My-Posts/MyPosts";
 import { PageNotFound } from "./Components/PageNotFound/Page-Not-Found";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-
 export const AppContext = createContext();
 
 function App() {

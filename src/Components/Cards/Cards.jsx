@@ -72,7 +72,6 @@ export const Cards = (props) => {
                     )
                 )
             }
-
         </div>
     )
 }

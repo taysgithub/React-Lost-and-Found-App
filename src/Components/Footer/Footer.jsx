@@ -3,9 +3,9 @@ import "./Footer.scss";
 export const Footer = () => {
     return (
         <div className="footer">
-            <svg>
-                <reac />
-            </svg>
+            <div className="footerText">
+                <span>by Yuxiao Yan</span>
+            </div>
         </div>
     )
 }

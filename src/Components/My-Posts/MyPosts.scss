@@ -4,11 +4,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0rem;
+    justify-content: space-between;
+    padding-top: 0.5rem;
 
-    h3{
-        padding: 1rem 0rem;
-        font-weight: bold;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .myPosts-main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h3{
+            padding: 1rem 0rem;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
     }
 }
