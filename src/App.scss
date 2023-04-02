@@ -1,15 +1,15 @@
 .app{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
   background-color: rgb(247, 245, 238);
 
-  .top-bar{
-    height: 4.8dvh;
-  }
+  // .top-bar{
+  //   height: 4.8dvh;
+  // }
 
   .main {
-    height: 95.2dvh;
+    height: calc(100dvh - 40px);
     // padding: 0rem 2rem;
     padding: 0rem;
     display: flex;

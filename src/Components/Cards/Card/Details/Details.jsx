@@ -29,9 +29,9 @@ export const Details = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className='detail-carousel'>
-                        <Carousel variant="dark">
-                            { props.photoUrls &&
-                                props.photoUrls.map((photoUrl, index) => (
+                        { props.photoUrls.length !== 0 &&
+                            <Carousel variant="dark">
+                                {props.photoUrls.map((photoUrl, index) => (
                                     <Carousel.Item key={index}>
                                         <img
                                         // className="details-imgs"
@@ -46,9 +46,9 @@ export const Details = (props) => {
                                         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                                         </Carousel.Caption> */}
                                     </Carousel.Item>
-                                ))
-                            }
-                        </Carousel>
+                                ))}
+                            </Carousel>
+                        }
                     </div>
                     <div><b>Name: </b>{props.name}</div>
                     <div><b>Email: </b><a href={`mailto:${props.email}`}>{props.email}</a></div>

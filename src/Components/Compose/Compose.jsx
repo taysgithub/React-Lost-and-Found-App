@@ -90,13 +90,13 @@ export const Compose = (props) => {
                         localUrls,
                         validated,
                         inProgress,
+                        setInProgress,
                         returnSpinner, 
                         requestPhotoLocalUrls, 
                         setValidated,
                         setInProgress,
                         setLocalUrls,
                         imageCompression,
-                        setInProgress,
                     }}
                 >
                     { mode === "newPost" ? <NewPost/> : <EditPost post={post}/>}             
