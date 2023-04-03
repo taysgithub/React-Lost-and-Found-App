@@ -20,7 +20,8 @@ export const EditPost = (props) => {
         upload, 
         getDownloadUrl, 
         uploadResumable, 
-        posts
+        posts, 
+        setIsLoadingImg
     } = useContext(AppContext);
     
     const {
@@ -65,6 +66,7 @@ export const EditPost = (props) => {
                 if(post.postId === id){
                     await updateDoc(editRef, form);                 
                     if(photos.length !== 0){
+                        setIsLoadingImg(true);
                         const updateDocRef = doc(db, "posts", post.postId);
                         for(const photoDirectory of post.photoDirectories){
                             const deleteStorageRef = ref(storage, photoDirectory);
@@ -106,7 +108,8 @@ export const EditPost = (props) => {
                                 })
                             })
                         }
-                        await updateDoc(editRef, form)
+                        // await updateDoc(editRef, form);
+                        setIsLoadingImg(false);
                     }
                 }
             }

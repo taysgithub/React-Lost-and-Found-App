@@ -20,30 +20,29 @@ function App() {
   const [authState, loading] = useAuthState(auth);
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState(null);
+  const [isLoadingImg, setIsLoadingImg] = useState(false);
   
   const navigate = useNavigate();
 
   const q = query(collection(db, "posts"), orderBy('timestamp'));
 
   const subscribePosts = () => {
-      const unsubscribe = onSnapshot(q, async (querySnapshot) => {
-          if(querySnapshot.docs.length !== 0){
-            await setPosts(querySnapshot.docs.map((doc, index) => {
-                  return {
-                      postId: doc.id,
-                      userId: doc.data().userId,
-                      description: doc.data().description,
-                      name: doc.data().name,
-                      timestamp: doc.data().timestamp,
-                      photoUrls: doc.data().photoUrls,
-                      photoDirectories: doc.data().photoDirectories,
-                      phone: doc.data().phone,
-                      email: doc.data().email,
-                      key: index
-                  }
-            }).reverse());
-          }
-      })
+    const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+      if(querySnapshot.docs.length !== 0){
+        await setPosts(querySnapshot.docs.map((doc, index) => ({
+          postId: doc.id,
+          userId: doc.data().userId,
+          description: doc.data().description,
+          name: doc.data().name,
+          timestamp: doc.data().timestamp,
+          photoUrls: doc.data().photoUrls,
+          photoDirectories: doc.data().photoDirectories,
+          phone: doc.data().phone,
+          email: doc.data().email,
+          key: index
+        })).reverse());
+      }
+    });
   }
 
   useEffect(() => {
@@ -52,7 +51,7 @@ function App() {
 
   return (
     <div className="app">
-      <AppContext.Provider value={{app, user, setUser, auth, navigate, storage, db, storageRef, upload, getDownloadUrl, uploadResumable, posts, setPosts, authState, loading}}>
+      <AppContext.Provider value={{app, user, setUser, auth, navigate, storage, db, storageRef, upload, getDownloadUrl, uploadResumable, posts, setPosts, authState, loading, isLoadingImg, setIsLoadingImg}}>
           <div className="top-bar">
             <TopBar />
           </div>

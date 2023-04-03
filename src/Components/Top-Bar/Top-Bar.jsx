@@ -16,7 +16,7 @@ export const TopBar = () => {
             <Navbar bg="dark" variant="dark">
                 <Container className='navbar-container'>
                     <Navigation />
-                    <Navbar.Brand href="#home">Lost & Found</Navbar.Brand>
+                    <Navbar.Brand href="/">Lost & Found</Navbar.Brand>
                     <Nav className="me-auto"></Nav>
                     <div className="right">
                         {authState &&

@@ -12,13 +12,13 @@ import { AppContext } from '../../../App';
 export const Post = (props) => {
     const post = props.post;
     const isMyPosts = (props.mode === "mine");
-    const { authState } = useContext(AppContext);
+    const { authState, isLoadingImg } = useContext(AppContext);
 
     return (
         <div className="card">       
             <Card > 
                 <div className="cardiconArea">
-                    <Card.Img variant="top" src={props.post.photoUrls.length === 0 ? noImage : props.post.photoUrls[0]} className={props.post.photoUrls.length === 0 ? 'cardIconPlaceholder' : 'cardIcon'}/>
+                    <Card.Img variant="top" src={isLoadingImg ? loadingImage : props.post.photoUrls.length === 0 ? noImage : props.post.photoUrls[0]} className={isLoadingImg ? "cardIconLoading" : props.post.photoUrls.length === 0 ? 'cardIconPlaceholder' : 'cardIcon'}/>
                 </div>
                 <Card.Body>
                     <Card.Title className={props.post.userId === authState?.uid ? "card-title-mine" : "card-title"}>
