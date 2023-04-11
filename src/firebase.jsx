@@ -20,7 +20,6 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const storage = getStorage(app);
-export const storageRef = ref;
 export const upload = uploadBytes;
 export const getDownloadUrl = getDownloadURL;
 export const uploadResumable = uploadBytesResumable;

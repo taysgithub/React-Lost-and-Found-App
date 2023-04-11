@@ -1,14 +1,28 @@
 import "./Delete.scss";
 import { useState, useContext } from "react";
-import { AppContext } from "../../../../App";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { db } from "../../../../firebase";
+import { db, storage } from "../../../../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref, listAll } from "firebase/storage";
 
+// Hook
+import useAuth from "../../../../Hook/useAuth";
+
 export const Delete = (props) => {
-    const {authState, storage} = useContext(AppContext);
+    const {
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth();
+
     const [show, setShow] = useState(false);
 
     const toggleModal = () => {
@@ -16,7 +30,7 @@ export const Delete = (props) => {
     };
 
     const deletePost = async (id) => {
-        const path = `images/${authState.uid}/${id}`;
+        const path = `images/${user.uid}/${id}`;
         const listAllRef = ref(storage, path);        
         try {
             await listAll(listAllRef).then( response => {

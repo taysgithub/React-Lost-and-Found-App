@@ -1,14 +1,19 @@
 import Carousel from 'react-bootstrap/Carousel';
-import { useContext } from "react";
-import { ComposeContext } from '../Compose';
 import "./Compose-Carousel.scss";
+
+// Hook
+import useCompose from '../../../Hook/useCompose';
 
 export const ComposeCarousel = (props) => {
 
-
     const {
-        localUrls,
-    } = useContext(ComposeContext);
+        photos, 
+        setPhotos,
+        localUrls, 
+        setLocalUrls,
+        requestPhotoLocalUrls,
+        catchPhotoLocalUrls,
+    } = useCompose();
 
     return (
         <>

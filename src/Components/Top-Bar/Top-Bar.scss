@@ -1,9 +1,12 @@
 .navbar {
     width: 100%;
-    padding: 0px;
+    // padding: 0px;
+    background-color: #212529;
 
     .navbar-container{
-
+        .navbar-brand{ 
+            font-weight: bold;
+        }
         .right{
             color: white;
             font-size: 0.7rem;

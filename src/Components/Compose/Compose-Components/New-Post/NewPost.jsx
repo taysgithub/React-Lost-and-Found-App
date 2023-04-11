@@ -1,22 +1,41 @@
+// Scss
 import "./NewPost.scss";
+// Bootstrap
 import { ComposeForm } from "../Compose-Form";
-import { useContext } from "react";
-import { AppContext } from "../../../../App";
-import { ComposeContext } from "../../Compose";
-import { db } from "../../../../firebase";
-import { collection, addDoc, serverTimestamp, doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { storageRef } from "../../../../firebase";
+// Components
 import { ComposeCarousel } from "../Compose-Carousel";
-
+// Firebase
+import { db, storage, upload,  getDownloadUrl, uploadResumable } from "../../../../firebase";
+import { collection, addDoc, serverTimestamp, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { ref } from "firebase/storage";
+// Hook
+import useApp from "../../../../Hook/useApp";
+import useAuth from "../../../../Hook/useAuth";
+import useCompose from "../../../../Hook/useCompose";
 
 export const NewPost = () => {
-    const {authState, navigate, storage, upload,  getDownloadUrl, uploadResumable} = useContext(AppContext);
+    const {
+        user,
+    } = useAuth();
+
+    const {
+        navigate, 
+    } = useApp();
+
     const {
         photos, 
+        setPhotos,
+        localUrls, 
+        setLocalUrls,
+        validated, 
         setValidated,
+        inProgress, 
         setInProgress,
+        requestPhotoLocalUrls,
+        catchPhotoLocalUrls,
+        returnSpinner,
         imageCompression,
-    } = useContext(ComposeContext)
+    } = useCompose();
 
     const handleNewPost = async (event) => {
         event.preventDefault();
@@ -34,7 +53,7 @@ export const NewPost = () => {
     const addDocToFirestore = async (e) => {
         setInProgress(true);
         const form = {
-            userId: authState.uid,
+            userId: user.uid,
             name : e.target[0].value,
             email: e.target[1].value,
             phone: e.target[2].value,
@@ -54,8 +73,8 @@ export const NewPost = () => {
             }
             
             for (const photo of photos){
-                const photoDirectory = `images/${authState.uid}/${docRef.id}/${photo.name}`;
-                const photoRef = storageRef(storage, photoDirectory);
+                const photoDirectory = `images/${user.uid}/${docRef.id}/${photo.name}`;
+                const photoRef = ref(storage, photoDirectory);
                 const compressedPhoto = await imageCompression(photo, options);
                 const uploadTask = uploadResumable(photoRef, compressedPhoto);
                 await upload(photoRef, compressedPhoto).then(async () => {

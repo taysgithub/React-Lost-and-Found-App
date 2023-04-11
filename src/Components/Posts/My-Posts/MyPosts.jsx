@@ -1,25 +1,39 @@
-import { AppContext } from "../../../App"
-import { useContext } from 'react';
 import { Posts } from "../Posts";
 import { Footer } from "../../Footer/Footer";
 import "./MyPosts.scss";
 
+// Hook
+import useAuth from "../../../Hook/useAuth";
+
 export const MyPosts = () => {
-    const {authState} = useContext(AppContext);
+
+    const {
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth();
+
+    console.log(user.uid)
 
     return (
         <div className="myPosts">
             <div className="myPosts-main">
             <h3>My Posts</h3>
-                { authState &&
+                { user &&
                     <Posts 
-                        userId={authState.uid}
-                        // mine={true}
+                        userId={user.uid}
                         mode = "mine"
                     />
                 }
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

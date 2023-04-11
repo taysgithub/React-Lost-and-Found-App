@@ -1,35 +1,52 @@
+// Scss
 import "./Edit-Post.scss";
-import { useContext, useState } from "react";
-import { AppContext } from "../../../../App";
-import { ComposeContext } from "../../Compose";
+// React
+import { useState } from "react";
+// Component
 import { ComposeForm } from "../Compose-Form";
-import { db } from "../../../../firebase";
-import { serverTimestamp, doc, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
-import { storageRef } from "../../../../firebase";
+import { ComposeCarousel } from "../Compose-Carousel";
+// Bootstrap
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { ComposeCarousel } from "../Compose-Carousel";
+// Firebase
+import { serverTimestamp, doc, updateDoc, arrayRemove, arrayUnion, } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
+import { db, storage, upload, getDownloadUrl, uploadResumable } from "../../../../firebase";
+// Hook
+import useApp from "../../../../Hook/useApp";
+import useAuth from "../../../../Hook/useAuth";
+import usePosts from "../../../../Hook/usePosts";
+// Context
+import useCompose from "../../../../Hook/useCompose";
 
 export const EditPost = (props) => {
 
     const {
-        authState,
-        navigate, 
-        storage, 
-        upload, 
-        getDownloadUrl, 
-        uploadResumable, 
-        posts, 
+        navigate,  
+    } = useApp();
+
+    const {
+        posts,
         setIsLoadingImg
-    } = useContext(AppContext);
-    
+    } = usePosts();
+
+    const {
+        user,
+    } = useAuth();
+
     const {
         photos, 
+        setPhotos,
+        localUrls, 
+        setLocalUrls,
+        validated, 
         setValidated,
+        inProgress, 
         setInProgress,
-        imageCompression,
-    } = useContext(ComposeContext)
+        requestPhotoLocalUrls,
+        catchPhotoLocalUrls,
+        returnSpinner,
+        imageCompression,    } = useCompose();
     
     const post = props.post;
     const [show, setShow] = useState(false);
@@ -93,8 +110,8 @@ export const EditPost = (props) => {
                             useWebWorker: true,
                         }
                         for (const photo of photos){
-                            const photoDirectory = `images/${authState.uid}/${post.postId}/${photo.name}`;
-                            const photoRef = storageRef(storage, photoDirectory);
+                            const photoDirectory = `images/${user.uid}/${post.postId}/${photo.name}`;
+                            const photoRef = ref(storage, photoDirectory);
                             const compressedPhoto = await imageCompression(photo, options);
                             const uploadTask = uploadResumable(photoRef, compressedPhoto);
                             await upload(photoRef, compressedPhoto).then(async () => {

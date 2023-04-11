@@ -2,14 +2,26 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { auth } from '../../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 import "./Top-Bar.scss";
 import { Navigation } from './Navigation/Navigation';
 
+// Hook
+import useAuth from '../../Hook/useAuth';
 
 export const TopBar = () => {
-    const [authState] = useAuthState(auth);
+    const {
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth();
     // console.log(authState);
     return (
         <div className="navbar">
@@ -19,8 +31,8 @@ export const TopBar = () => {
                     <Navbar.Brand href="/">Lost & Found</Navbar.Brand>
                     <Nav className="me-auto"></Nav>
                     <div className="right">
-                        {authState &&
-                            authState.email
+                        {user &&
+                            user.email
                         }
                     </div>
                 </Container>

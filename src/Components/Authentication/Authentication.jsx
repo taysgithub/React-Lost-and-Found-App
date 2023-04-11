@@ -1,58 +1,32 @@
-import { useState, useRef, useContext } from 'react';
+// Bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+// Scss
 import "./Authentication.scss";
-import { AppContext } from '../../App';
-
-// Firebase
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+// Hook
+import useAuth from '../../Hook/useAuth';
 
 export const Authentication = (prop) => {
 
-    const { auth, navigate} = useContext(AppContext);
-    const [isSignUp, setIsSignUp] = useState(true);
-    const [isSignIn, setIsSignIn] = useState(false);
-    const email = useRef();
-    const password = useRef();
-
-    const toggleMode = () => {
-        setIsSignUp(!isSignUp);
-        setIsSignIn(!isSignIn);
-    }
-
-    const signUp = () => {
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value).then(
-            userCredential => {
-                navigate(`/${prop.location}`);
-            }
-        ).catch (e => {
-            alert(`${e.code}: ${e.message}`);
-        });
-    }
-
-    const signIn = () => {        
-        signInWithEmailAndPassword(auth, email.current.value, password.current.value).then(
-            userCredential => {
-                navigate(`/${prop.location}`);
-            }
-        ).catch(e => {
-            alert(`${e.code}: ${e.message}`);
-        })
-    }
+    const {
+        signUp,
+        signIn,
+        isSignUp,
+        isSignIn,
+        toggleMode
+    } = useAuth();
 
     const submit = (event) => {
         event.preventDefault();
+        const email = event.target[0].value;
+        const password = event.target[1].value;
         if(isSignUp){
-            signUp();
+            signUp(email, password);
         }
         else{
-            signIn();
+            signIn(email, password);
         }
-        // console.log({
-        //     email: email,
-        //     password: password
-        // })
     }
 
     return (
@@ -64,7 +38,7 @@ export const Authentication = (prop) => {
                         label="Email address"
                         className="mb-3"
                     >
-                        <Form.Control type="email" placeholder="Email" ref={email} autoFocus={true}/>
+                        <Form.Control type="email" placeholder="Email" autoFocus={true}/>
                     </FloatingLabel>
                 </Form.Group>
         
@@ -74,7 +48,7 @@ export const Authentication = (prop) => {
                         label="Password"
                         className="mb-3"
                     >
-                        <Form.Control type="password" placeholder="Password" ref={password}/>
+                        <Form.Control type="password" placeholder="Password"/>
                     </FloatingLabel>
                 </Form.Group>
 

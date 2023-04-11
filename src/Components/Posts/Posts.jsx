@@ -1,12 +1,25 @@
-import { useContext } from 'react';
-import { AppContext } from '../../App';
+
 import { Post } from "./Post/Post"
-import { LoadingPage } from '../Loading-Page/Loading-Page';
 import "./Posts.scss";
 
+// Hook
+import usePosts from '../../Hook/usePosts';
+import useAuth from '../../Hook/useAuth';
+
 export const Posts = (props) => {
-    const { authState, posts, isLoadingImg} = useContext(AppContext);
-    
+    const {posts} = usePosts();   
+    const {
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth(); 
     const isMyPosts = (props.mode === "mine");
     const isAllPosts = (props.mode === "all");
 
@@ -15,7 +28,7 @@ export const Posts = (props) => {
             { isMyPosts && 
                 posts?.map(
                     (post, index) => {
-                        if(post.userId === authState?.uid){
+                        if(post.userId === user?.uid){
                             return(
                                 <Post 
                                 key={index}

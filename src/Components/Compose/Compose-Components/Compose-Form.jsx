@@ -1,7 +1,3 @@
-import { useContext } from "react";
-import { AppContext } from "../../../App";
-import { ComposeContext } from "../Compose";
-
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -9,17 +5,41 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
+// Hook
+import useAuth from "../../../Hook/useAuth";
+import useCompose from "../../../Hook/useCompose";
+
 export const ComposeForm = (props) => {
-    const { authState } = useContext(AppContext);
+
     const {
-        mode, 
-        validated,
-        inProgress,
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth();
+
+    const {
+        photos, 
+        setPhotos,
+        localUrls, 
+        setLocalUrls,
+        validated, 
+        setValidated,
+        inProgress, 
+        setInProgress,
         requestPhotoLocalUrls,
+        catchPhotoLocalUrls,
         returnSpinner,
-    } = useContext(ComposeContext);
-    const post = props.post;
-    const isNewPost = (mode === "newPost");
+        mode,
+        post,
+        isNewPost
+    } = useCompose();
     
     return (
         <div className="form">
@@ -53,7 +73,7 @@ export const ComposeForm = (props) => {
                                 required
                                 type="email"
                                 placeholder="Email Address"
-                                defaultValue={ isNewPost ? authState?.email : post.email}
+                                defaultValue={ isNewPost ? user?.email : post.email}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         </FloatingLabel>

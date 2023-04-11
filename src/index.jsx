@@ -1,14 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.scss';
 import App from './App';
+
+// Context
+import { AppProvider } from './Context/AppContext';
+import { PostsProvider } from './Context/PostsContext';
+import { AuthProvider } from './Context/AuthContext';
+import { ComposeProvider } from './Context/ComposeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AppProvider>
+        <PostsProvider>
+          <AuthProvider>
+            <ComposeProvider>
+              <Routes>
+                <Route path='/*' element={<App />}/>
+              </Routes>
+            </ComposeProvider>
+          </AuthProvider>
+        </PostsProvider>
+      </AppProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

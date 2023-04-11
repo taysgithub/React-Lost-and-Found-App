@@ -5,32 +5,38 @@ import Badge from 'react-bootstrap/Badge';
 import {GiHamburgerMenu} from "react-icons/gi";
 import { Link } from "react-router-dom";
 import "./Navigation.scss";
-import { useState, useContext, useEffect } from 'react';
-import { signOut } from "firebase/auth";
-import { AppContext } from '../../../App';
+import { useState, useEffect } from 'react';
+
+// Hook
+import usePosts from '../../../Hook/usePosts';
+import useAuth from '../../../Hook/useAuth';
 
 export const Navigation = () => {
 
-    const {authState, auth, posts} = useContext(AppContext);
+    const {
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth();
+
+    const {posts} = usePosts();
     const [show, setShow] = useState(false);
     const [numMyPosts, setNumMyPosts] = useState(0);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const sign_out = () => {
-        signOut(auth).then(() => {
-            // setUser(null);
-            // alert("You are signed out");
-        }).catch(e => {
-            alert(`${e.code}: ${e.message}`);
-        })
-    }
-
     const calc_numMyPosts = () => {
-        if(authState){
+        if(user){
             let counter = 0;
             posts?.forEach(post => {
-                if(post.userId === authState.uid){
+                if(post.userId === user.uid){
                     counter += 1;
                 }
             })
@@ -40,7 +46,7 @@ export const Navigation = () => {
 
     useEffect(() => {
         calc_numMyPosts();
-    }, [posts]);
+    }, [posts, user]);
 
     return (
         <div>
@@ -60,17 +66,17 @@ export const Navigation = () => {
                                 <Nav.Link as={Link} to="/" onClick={handleClose} className='option'>Home</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link as={Link} to="/compose" onClick={handleClose} className='option'>Compose</Nav.Link>
+                                <Nav.Link as={Link} to="compose" onClick={handleClose} className='option'>Compose</Nav.Link>
                             </Nav.Item>
-                            {!authState &&
+                            {!user &&
                                 <Nav.Item>
-                                    <Nav.Link as={Link} to="/auth" onClick={handleClose} className='option'>Sign Up / Sign In</Nav.Link>
+                                    <Nav.Link as={Link} to="auth" onClick={handleClose} className='option'>Sign Up / Sign In</Nav.Link>
                                 </Nav.Item>
                             }
-                            { authState &&
+                            { user &&
                                 <div className="isSignedIn">
                                     <Nav.Item>
-                                        <Nav.Link as={Link} to="/myposts" onClick={handleClose} className='option' id='myposts-navlink'>
+                                        <Nav.Link as={Link} to="myposts" onClick={handleClose} className='option' id='myposts-navlink'>
                                             My Posts
                                             <Badge pill bg="dark">{numMyPosts}</Badge>
                                         </Nav.Link>  

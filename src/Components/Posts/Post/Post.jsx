@@ -6,13 +6,31 @@ import "./Post.scss";
 import noImage from '../../../assets/noimage.jpg';
 import loadingImage from "../../../assets/loading.gif"
 import { Compose } from '../../Compose/Compose';
-import { useContext } from 'react';
-import { AppContext } from '../../../App';
+
+// Hook
+import useAuth from '../../../Hook/useAuth';
+import usePosts from '../../../Hook/usePosts';
 
 export const Post = (props) => {
+    const {
+        user,
+        setUser,
+        signUp,
+        signIn,
+        sign_out,
+        isSignUp,
+        setIsSignUp,
+        isSignIn,
+        setIsSignIn,
+        toggleMode
+    } = useAuth();
+
+    const {
+        isLoadingImg,
+    } = usePosts();
+
     const post = props.post;
     const isMyPosts = (props.mode === "mine");
-    const { authState, isLoadingImg } = useContext(AppContext);
 
     return (
         <div className="card">       
@@ -21,9 +39,9 @@ export const Post = (props) => {
                     <Card.Img variant="top" src={isLoadingImg ? loadingImage : props.post.photoUrls.length === 0 ? noImage : props.post.photoUrls[0]} className={isLoadingImg ? "cardIconLoading" : props.post.photoUrls.length === 0 ? 'cardIconPlaceholder' : 'cardIcon'}/>
                 </div>
                 <Card.Body>
-                    <Card.Title className={props.post.userId === authState?.uid ? "card-title-mine" : "card-title"}>
+                    <Card.Title className={props.post.userId === user?.uid ? "card-title-mine" : "card-title"}>
                         {props.post.name} 
-                        {props.post.userId === authState?.uid && 
+                        {props.post.userId === user?.uid && 
                             <div className='badge'>
                                 <Badge bg="success">Me</Badge>
                             </div>
