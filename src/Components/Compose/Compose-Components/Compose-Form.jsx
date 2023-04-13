@@ -1,3 +1,5 @@
+// React
+import { useEffect } from 'react';
 // Bootstrap
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +12,9 @@ import useAuth from "../../../Hook/useAuth";
 import useCompose from "../../../Hook/useCompose";
 
 export const ComposeForm = (props) => {
+
+    const post = props.post;
+    // const validated = props.validated;
 
     const {
         user,
@@ -33,13 +38,31 @@ export const ComposeForm = (props) => {
         setValidated,
         inProgress, 
         setInProgress,
-        requestPhotoLocalUrls,
-        catchPhotoLocalUrls,
         returnSpinner,
         mode,
-        post,
         isNewPost
     } = useCompose();
+
+    const requestPhotoLocalUrls = (event) => {
+        if(!event.target.files || event.target.files.length === 0){
+            setPhotos([]);
+            return;
+        }
+        else {
+            // console.log(event.target.files);
+            setPhotos(Array.from(event.target.files));
+        }
+    }
+
+    const catchPhotoLocalUrls = () => {
+        const tempArray = [];
+        photos.forEach(photo => {tempArray.push(URL.createObjectURL(photo))});
+        setLocalUrls(tempArray);
+    }
+
+    useEffect(() => {
+        catchPhotoLocalUrls();
+    }, [photos]);
     
     return (
         <div className="form">

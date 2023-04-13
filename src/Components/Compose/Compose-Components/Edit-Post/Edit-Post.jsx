@@ -1,7 +1,7 @@
 // Scss
 import "./Edit-Post.scss";
 // React
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Component
 import { ComposeForm } from "../Compose-Form";
 import { ComposeCarousel } from "../Compose-Carousel";
@@ -43,8 +43,6 @@ export const EditPost = (props) => {
         setValidated,
         inProgress, 
         setInProgress,
-        requestPhotoLocalUrls,
-        catchPhotoLocalUrls,
         returnSpinner,
         imageCompression,    } = useCompose();
     
@@ -52,7 +50,8 @@ export const EditPost = (props) => {
     const [show, setShow] = useState(false);
 
     const toggleModal = () => {
-        setShow(!show);             
+        setShow(!show);  
+        setPhotos([]);           
     };
 
     const handleEdit = async (event) => {
@@ -63,6 +62,7 @@ export const EditPost = (props) => {
         }
         else{
             await Edit(post.postId, event);
+            form.reset();
             navigate('/myposts');
         }
         setValidated(true);
@@ -137,6 +137,11 @@ export const EditPost = (props) => {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        setPhotos([]);
+        setValidated(false);
+    }, []);
 
     return (
         <div className="edit-post">

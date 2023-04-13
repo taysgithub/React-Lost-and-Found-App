@@ -38,8 +38,6 @@ export const NewPost = () => {
         setValidated,
         inProgress, 
         setInProgress,
-        requestPhotoLocalUrls,
-        catchPhotoLocalUrls,
         returnSpinner,
         imageCompression,
     } = useCompose();

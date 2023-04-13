@@ -15,6 +15,9 @@ import useCompose from '../../Hook/useCompose';
 export const ComposeContext = createContext();
 
 export const Compose = (props) => {
+
+    const post = props.post;
+
     const {
         navigate,
     } = useApp();
@@ -41,18 +44,13 @@ export const Compose = (props) => {
         setValidated,
         inProgress, 
         setInProgress,
-        requestPhotoLocalUrls,
-        catchPhotoLocalUrls,
         returnSpinner,
         mode,
         setMode,
-        post,
-        setPost,
         isNewPost,
     } = useCompose();
 
     setMode(props.mode);
-    setPost(props.post);
 
     const handleClose = () => {
         navigate('/');
@@ -80,7 +78,7 @@ export const Compose = (props) => {
                 </div>
             }
             {user &&
-                isNewPost ? <NewPost/> : <EditPost />            
+                isNewPost ? <NewPost/> : <EditPost post={post}/>            
             }
         </div>
     )

@@ -12,6 +12,7 @@ import { ref } from "firebase/storage";
 import useApp from "../../../../Hook/useApp";
 import useAuth from "../../../../Hook/useAuth";
 import useCompose from "../../../../Hook/useCompose";
+import { useEffect, useLayoutEffect } from "react";
 
 export const NewPost = () => {
     const {
@@ -31,8 +32,6 @@ export const NewPost = () => {
         setValidated,
         inProgress, 
         setInProgress,
-        requestPhotoLocalUrls,
-        catchPhotoLocalUrls,
         returnSpinner,
         imageCompression,
     } = useCompose();
@@ -45,6 +44,7 @@ export const NewPost = () => {
         }
         else{
             await addDocToFirestore(event);
+            form.reset();
             navigate('/myposts');           
         }
         setValidated(true);
@@ -92,6 +92,11 @@ export const NewPost = () => {
         }
         setInProgress(false);
     }
+
+    useEffect(() => {
+        setPhotos([]);
+        setValidated(false);
+    }, []);
 
     return (
         <div className="new-post">

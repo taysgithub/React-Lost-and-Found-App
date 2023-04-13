@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from "react-router-dom";
 import { auth } from '../../firebase';
 
 import "./Top-Bar.scss";
@@ -28,7 +29,7 @@ export const TopBar = () => {
             <Navbar bg="dark" variant="dark">
                 <Container className='navbar-container'>
                     <Navigation />
-                    <Navbar.Brand href="/">Lost & Found</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/">Lost & Found</Navbar.Brand>
                     <Nav className="me-auto"></Nav>
                     <div className="right">
                         {user &&

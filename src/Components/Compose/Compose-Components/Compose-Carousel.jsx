@@ -11,8 +11,6 @@ export const ComposeCarousel = (props) => {
         setPhotos,
         localUrls, 
         setLocalUrls,
-        requestPhotoLocalUrls,
-        catchPhotoLocalUrls,
     } = useCompose();
 
     return (
