@@ -1,26 +1,20 @@
+// Scss
 import "./Delete.scss";
-import { useState, useContext } from "react";
+// React
+import { useState } from "react";
+// Bootstrap
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+// Firebase
 import { db, storage } from "../../../../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref, listAll } from "firebase/storage";
-
 // Hook
 import useAuth from "../../../../Hook/useAuth";
 
 export const Delete = (props) => {
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
-        sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth();
 
     const [show, setShow] = useState(false);
@@ -59,14 +53,14 @@ export const Delete = (props) => {
                 centered
                 scrollable
             >
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Delete</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     Do you confirm to delete?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" size="sm" className="smallBtn" onClick={() => {deletePost(props.postId)}}>
+                    <Button variant="outline-danger" size="sm" className="smallBtn" onClick={() => {deletePost(props.postId)}}>
                         Delete
                     </Button>
                     <Button variant="dark" size="sm" className="smallBtn" onClick={toggleModal}>

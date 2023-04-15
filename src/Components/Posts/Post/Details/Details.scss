@@ -1,5 +1,27 @@
-.detail-carousel{
-    img{
-        object-fit: contain;
+.modal-header{
+    background-color: #212529;
+    background-color: #F4F0EB;
+
+    .modal-title{
+        font-weight: bold;
     }
+}
+
+.modal-body{
+
+    background-color: #F4F0EB;
+
+    .detail-carousel{
+        margin-bottom: 0.5rem;
+        img{
+            object-fit: contain;
+        }
+    } 
+}
+
+.modal-footer{
+    background-color: #212529;
+    background-color: #F4F0EB;
+
+    // height: 4rem;
 }

@@ -1,7 +1,7 @@
+// Component
 import { Posts } from "../Posts";
-import { Footer } from "../../Footer/Footer";
+// Scss
 import "./MyPosts.scss";
-
 // Hook
 import useAuth from "../../../Hook/useAuth";
 
@@ -9,15 +9,6 @@ export const MyPosts = () => {
 
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
-        sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth();
 
     console.log(user.uid)
@@ -33,7 +24,6 @@ export const MyPosts = () => {
                     />
                 }
             </div>
-            {/* <Footer /> */}
         </div>
     )
 }

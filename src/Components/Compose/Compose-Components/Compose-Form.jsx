@@ -19,28 +19,15 @@ export const ComposeForm = (props) => {
 
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
-        sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth();
 
     const {
         photos, 
         setPhotos,
-        localUrls, 
         setLocalUrls,
         validated, 
-        setValidated,
         inProgress, 
-        setInProgress,
         returnSpinner,
-        mode,
         isNewPost
     } = useCompose();
 
@@ -80,7 +67,6 @@ export const ComposeForm = (props) => {
                                 type="text"
                                 placeholder="Name"
                                 defaultValue={ isNewPost ? '' : post.name }
-                                autoFocus={true}
                             />
                             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                         </FloatingLabel>
@@ -145,9 +131,11 @@ export const ComposeForm = (props) => {
                             <Form.Control type="file" multiple accept="image/*" onChange={requestPhotoLocalUrls}/>
                     </Form.Group>
                 </Row>
-                <Button variant="dark" type="submit" disabled={inProgress}>
-                    {inProgress ? returnSpinner() : isNewPost ? 'Post' : 'Modify'}
-                </Button>
+                <div className='compose-button'>
+                    <Button variant="dark" type="submit" disabled={inProgress}>
+                        {inProgress ? returnSpinner() : isNewPost ? 'Post' : 'Modify'}
+                    </Button>
+                </div>
             </Form>
         </div>
     )

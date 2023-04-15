@@ -1,3 +1,4 @@
+// Scss
 import "./Loading-Page.scss";
 
 export const LoadingPage = () => {

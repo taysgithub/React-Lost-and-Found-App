@@ -1,3 +1,4 @@
+// Scss
 import "./Page-Not-Found.scss";
 
 export const PageNotFound = () => {

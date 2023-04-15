@@ -37,14 +37,10 @@ export const EditPost = (props) => {
     const {
         photos, 
         setPhotos,
-        localUrls, 
-        setLocalUrls,
-        validated, 
         setValidated,
-        inProgress, 
         setInProgress,
-        returnSpinner,
-        imageCompression,    } = useCompose();
+        imageCompression,    
+    } = useCompose();
     
     const post = props.post;
     const [show, setShow] = useState(false);

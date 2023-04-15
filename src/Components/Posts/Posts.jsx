@@ -1,7 +1,7 @@
-
+// Component
 import { Post } from "./Post/Post"
+// Scss
 import "./Posts.scss";
-
 // Hook
 import usePosts from '../../Hook/usePosts';
 import useAuth from '../../Hook/useAuth';
@@ -10,15 +10,6 @@ export const Posts = (props) => {
     const {posts} = usePosts();   
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
-        sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth(); 
     const isMyPosts = (props.mode === "mine");
     const isAllPosts = (props.mode === "all");

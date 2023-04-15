@@ -1,5 +1,8 @@
-import { createContext, useContext, useState, useEffect } from "react";
+// React
+import { createContext, useState } from "react";
+// Bootstrap
 import Spinner from 'react-bootstrap/Spinner';
+// Other
 import imageCompression from 'browser-image-compression';
 
 export const ComposeContext = createContext();

@@ -12,7 +12,7 @@ import { ref } from "firebase/storage";
 import useApp from "../../../../Hook/useApp";
 import useAuth from "../../../../Hook/useAuth";
 import useCompose from "../../../../Hook/useCompose";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 export const NewPost = () => {
     const {
@@ -26,13 +26,8 @@ export const NewPost = () => {
     const {
         photos, 
         setPhotos,
-        localUrls, 
-        setLocalUrls,
-        validated, 
         setValidated,
-        inProgress, 
         setInProgress,
-        returnSpinner,
         imageCompression,
     } = useCompose();
 

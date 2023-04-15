@@ -1,5 +1,7 @@
+// React
 import { createContext, useEffect, useState } from "react";
-import { db, auth, storage, upload, getDownloadUrl, uploadResumable } from "../firebase";
+// Firebase
+import { db } from "../firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 export const PostsContext = createContext();

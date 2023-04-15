@@ -1,7 +1,10 @@
+// Bootstrap
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+// React
 import { useState } from 'react';
+// Scss
 import "./Details.scss";
 
 export const Details = (props) => {
@@ -19,32 +22,26 @@ export const Details = (props) => {
             <Modal
                 show={show}
                 onHide={toggleModal}
-                // backdrop="static"
                 keyboard={false}
                 centered
                 scrollable
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>Details</Modal.Title>
+                <Modal.Header className='modal-header' closeButton>
+                    <Modal.Title className='modal-title'>Details</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className='modal-body'>
                     <div className='detail-carousel'>
                         { props.photoUrls.length !== 0 &&
                             <Carousel variant="dark">
                                 {props.photoUrls.map((photoUrl, index) => (
                                     <Carousel.Item key={index}>
                                         <img
-                                        // className="details-imgs"
                                         className='d-block w-100'
                                         src={photoUrl}
                                         alt={`${index} slide`}
                                         width={326}
                                         height={326}
                                         />
-                                        {/* <Carousel.Caption>
-                                        <h3>First slide label</h3>
-                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                        </Carousel.Caption> */}
                                     </Carousel.Item>
                                 ))}
                             </Carousel>
@@ -56,8 +53,6 @@ export const Details = (props) => {
                     <div><b>Description:</b></div>
                     <div className='details-detail'>{props.description}</div>
                 </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
             </Modal>
         </div>
     )

@@ -1,12 +1,15 @@
+// Bootstrap
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
+// Component
 import { Details } from './Details/Details';
 import { Delete } from "./Delete/Delete";
+import { Compose } from '../../Compose/Compose';
+// Scss
 import "./Post.scss";
+// Asset
 import noImage from '../../../assets/noimage.jpg';
 import loadingImage from "../../../assets/loading.gif"
-import { Compose } from '../../Compose/Compose';
-
 // Hook
 import useAuth from '../../../Hook/useAuth';
 import usePosts from '../../../Hook/usePosts';
@@ -14,15 +17,6 @@ import usePosts from '../../../Hook/usePosts';
 export const Post = (props) => {
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
-        sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth();
 
     const {

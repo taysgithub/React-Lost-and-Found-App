@@ -5,7 +5,6 @@ import './App.scss';
 // Components
 import { RequireAuth } from "./Components/RequireAuth";
 import { Layout } from "./Components/Layout/Layout";
-import { TopBar } from "./Components/Top-Bar/Top-Bar";
 import { Authentication } from "./Components/Authentication/Authentication";
 import { HomePage } from "./Components/HomePage/HomePage";
 import { AllPosts } from "./Components/All-Posts/All-Posts";
@@ -19,7 +18,6 @@ import useAuth from "./Hook/useAuth";
 function App() {
 
   const {
-    user,
     isLoading,
   } = useAuth();
   
@@ -29,7 +27,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           {/* Public Routes */}
           <Route path="" element={isLoading ? <LoadingPage /> : <HomePage />}>
-          <Route path="" element={isLoading ? <LoadingPage /> : <AllPosts />}/>
+            <Route path="" element={isLoading ? <LoadingPage /> : <AllPosts />}/>
           </Route>
           <Route path="auth" element={<Authentication location=''/>}/>
 

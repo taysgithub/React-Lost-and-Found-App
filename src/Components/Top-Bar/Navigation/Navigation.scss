@@ -1,9 +1,16 @@
 .headerIcon{
     width: 1.5rem;
     height: 1.5rem;
+    color: #ffc107;
 }
 
 .navigation{
+    background-color: #F4F0EB;
+
+    .offcanvas-title{
+        font-weight: bold;
+    }
+
     .offcanvasBody{
         .options{
             display: flex;

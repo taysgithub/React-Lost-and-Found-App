@@ -1,12 +1,14 @@
+// React
+import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+// Bootstrap
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Badge from 'react-bootstrap/Badge';
 import {GiHamburgerMenu} from "react-icons/gi";
-import { Link } from "react-router-dom";
+// Scss
 import "./Navigation.scss";
-import { useState, useEffect } from 'react';
-
 // Hook
 import usePosts from '../../../Hook/usePosts';
 import useAuth from '../../../Hook/useAuth';
@@ -15,15 +17,7 @@ export const Navigation = () => {
 
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
         sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth();
 
     const {posts} = usePosts();
@@ -56,7 +50,7 @@ export const Navigation = () => {
 
             <Offcanvas show={show} onHide={handleClose} className="navigation">
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>
+                    <Offcanvas.Title className='offcanvas-title'>
                         Menu
                     </Offcanvas.Title>
                 </Offcanvas.Header>
@@ -78,7 +72,7 @@ export const Navigation = () => {
                                     <Nav.Item>
                                         <Nav.Link as={Link} to="myposts" onClick={handleClose} className='option' id='myposts-navlink'>
                                             My Posts
-                                            <Badge pill bg="dark">{numMyPosts}</Badge>
+                                            <Badge pill bg="success">{numMyPosts}</Badge>
                                         </Nav.Link>  
                                     </Nav.Item>
                                     <Nav.Item>

@@ -1,12 +1,13 @@
-import { useState, useContext, useEffect, createContext } from 'react';
+// React
+import { createContext } from 'react';
+// Bootstrap
 import Modal from 'react-bootstrap/Modal';
-import imageCompression from 'browser-image-compression';
-
+// Component
 import { Authentication } from '../Authentication/Authentication';
-import "./Compose.scss";
 import { NewPost } from './Compose-Components/New-Post/NewPost';
 import { EditPost } from './Compose-Components/Edit-Post/Edit-Post';
-
+// Scss
+import "./Compose.scss";
 // Hook
 import useApp from '../../Hook/useApp';
 import useAuth from '../../Hook/useAuth';
@@ -24,28 +25,9 @@ export const Compose = (props) => {
 
     const {
         user,
-        setUser,
-        signUp,
-        signIn,
-        sign_out,
-        isSignUp,
-        setIsSignUp,
-        isSignIn,
-        setIsSignIn,
-        toggleMode
     } = useAuth();
 
     const {
-        photos, 
-        setPhotos,
-        localUrls, 
-        setLocalUrls,
-        validated, 
-        setValidated,
-        inProgress, 
-        setInProgress,
-        returnSpinner,
-        mode,
         setMode,
         isNewPost,
     } = useCompose();
