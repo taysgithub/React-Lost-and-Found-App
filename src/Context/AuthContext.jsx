@@ -1,6 +1,6 @@
 // React
-import { useState, useRef, useContext, createContext, useEffect } from 'react';
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useState, createContext, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 
 // Firebase
 import { auth } from "../firebase";

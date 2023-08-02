@@ -56,30 +56,34 @@ export const Navigation = () => {
                 </Offcanvas.Header>
                 <Offcanvas.Body className='offcanvasBody'>
                     <Nav justify variant="pills" defaultActiveKey="/" className='options'>
-                            <Nav.Item>
-                                <Nav.Link as={Link} to="/" onClick={handleClose} className='option'>Home</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link as={Link} to="compose" onClick={handleClose} className='option'>Compose</Nav.Link>
-                            </Nav.Item>
-                            {!user &&
+                            <div className="options-upper">
                                 <Nav.Item>
-                                    <Nav.Link as={Link} to="auth" onClick={handleClose} className='option'>Sign Up / Sign In</Nav.Link>
+                                    <Nav.Link as={Link} to="/" onClick={handleClose} className='option'>Home</Nav.Link>
                                 </Nav.Item>
-                            }
-                            { user &&
-                                <div className="isSignedIn">
+                                <Nav.Item>
+                                    <Nav.Link as={Link} to="compose" onClick={handleClose} className='option'>Compose</Nav.Link>
+                                </Nav.Item>
+                            </div>
+                            <div className="options-lower">
+                                {!user &&
                                     <Nav.Item>
-                                        <Nav.Link as={Link} to="myposts" onClick={handleClose} className='option' id='myposts-navlink'>
-                                            My Posts
-                                            <Badge pill bg="success">{numMyPosts}</Badge>
-                                        </Nav.Link>  
+                                        <Nav.Link as={Link} to="auth" onClick={handleClose} className='option'>Sign Up / Sign In</Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link as={Link} to="/" onClick={() => {handleClose(); sign_out()}} className='option'>Sign Out</Nav.Link>
-                                    </Nav.Item>
-                                </div>
-                            }
+                                }
+                                { user &&
+                                    <div className="isSignedIn">
+                                        <Nav.Item>
+                                            <Nav.Link as={Link} to="myposts" onClick={handleClose} className='option' id='myposts-navlink'>
+                                                My Posts
+                                                <Badge pill bg="success">{numMyPosts}</Badge>
+                                            </Nav.Link>  
+                                        </Nav.Item>
+                                        <Nav.Item>
+                                            <Nav.Link as={Link} to="/" onClick={() => {handleClose(); sign_out()}} className='option'>Sign Out</Nav.Link>
+                                        </Nav.Item>
+                                    </div>
+                                }
+                            </div>
                     </Nav>
                 </Offcanvas.Body>
             </Offcanvas>

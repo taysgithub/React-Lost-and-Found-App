@@ -6,6 +6,9 @@
 
 .navigation{
     background-color: #F4F0EB;
+    background-color: rgba($color: #F4F0EB, $alpha: 0.4);
+    // background: transparent;
+    backdrop-filter: blur(15px);
 
     .offcanvas-title{
         font-weight: bold;

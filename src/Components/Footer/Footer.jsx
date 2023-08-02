@@ -5,7 +5,7 @@ export const Footer = () => {
     return (
         <div className="footer">
             <div className="footerText">
-                <span>by Yuxiao Yan</span>
+                <span>by Ryan Yan</span>
             </div>
         </div>
     )
